@@ -1,4 +1,3 @@
-
 import express, { Router } from "express";
 import {
    countByCity,
@@ -6,28 +5,24 @@ import {
    deleteHotel,
    getHotel,
    getHotels,
-   updateHotel } from '../controllers';
-import { countByType } from "../controllers/hotel";
+   updateHotel,
+} from "../controllers";
+import { countByType, getHotelRooms } from "../controllers/hotel";
 import { verifyAdmin, verifyToken } from "../utils/verifyToken";
 
 const router: Router = express.Router();
 
-// CREATE
-router.post('/', [verifyToken, verifyAdmin], createHotel );
+router.post("/", [verifyToken, verifyAdmin], createHotel);
 
-// UPDATE
-router.put('/:id', [verifyToken, verifyAdmin], updateHotel );
+router.put("/:id", [verifyToken, verifyAdmin], updateHotel);
 
-// DELETE
-router.delete('/:id', [verifyToken, verifyAdmin], deleteHotel );
+router.delete("/:id", [verifyToken, verifyAdmin], deleteHotel);
 
-// GET BY ID
-router.get('/find/:id', getHotel );
+router.get("/find/:id", getHotel);
 
-// GET ALL
-router.get('/', getHotels );
-router.get('/countByCity', countByCity );
-router.get('/countByType', countByType );
+router.get("/", getHotels);
+router.get("/countByCity", countByCity);
+router.get("/countByType", countByType);
+router.get("/room/:id", getHotelRooms);
 
 export default router;
-

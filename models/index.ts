@@ -1,11 +1,5 @@
-
 import Hotel from "./Hotel";
-import User from './User';
+import User from "./User";
 import Room from "./Room";
 
-export {
-   Hotel,
-   User,
-   Room
-}
-
+export { Hotel, User, Room };

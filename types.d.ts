@@ -1,4 +1,3 @@
-
 import { NextFunction, Request, Response, Express } from "express";
 import { Document } from "mongoose";
 
@@ -34,9 +33,9 @@ export interface RoomModel extends Document {
    maxPeople: number;
    desc: string;
    roomNumbers: Array<{
-      number: number,
-      unavailableDates: { type: Array<Date> }
-   }>
+      number: number;
+      unavailableDates: { type: Array<Date> };
+   }>;
 }
 
 export interface TokenEncoded {
@@ -46,10 +45,10 @@ export interface TokenEncoded {
    exp: number;
 }
 
-export type TokenPayload = Omit<TokenEncoded, 'iat', 'exp'>
+export type TokenPayload = Omit<TokenEncoded, "iat", "exp">;
 
 interface Req extends Request {
-   user?: TokenEncoded
+   user?: TokenEncoded;
 }
 
 export interface Error {
@@ -57,8 +56,12 @@ export interface Error {
    message: string;
    stack?: string;
    status?: number;
-   code?: number
+   code?: number;
 }
 
-export type ErrorRequestHandler = ( err: any, req: Request, res: Response, next: NextFunction ) => any;
-
+export type ErrorRequestHandler = (
+   err: any,
+   req: Request,
+   res: Response,
+   next: NextFunction
+) => any;
