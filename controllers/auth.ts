@@ -49,8 +49,9 @@ export const login = async (
 
       const { password, __v, isAdmin, updatedAt, createdAt, ...otherDetails } =
          user._doc;
+      console.log(token);
       res.cookie("access_token", token, {
-         httpOnly: true,
+         httpOnly: false,
       }).json({
          details: { ...otherDetails },
          isAdmin,
