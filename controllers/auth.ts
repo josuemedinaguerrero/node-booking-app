@@ -44,8 +44,7 @@ export const login = async (
 
       const token = jwt.sign(
          { id: user._id, isAdmin: user.isAdmin } as TokenPayload,
-         process.env.SECRET_KEY as string,
-         { expiresIn: 60 * 60 * 24 }
+         process.env.SECRET_KEY as string
       );
 
       const { password, __v, isAdmin, updatedAt, createdAt, ...otherDetails } =
