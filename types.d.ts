@@ -59,9 +59,4 @@ export interface Error {
    code?: number;
 }
 
-export type ErrorRequestHandler = (
-   err: any,
-   req: Request,
-   res: Response,
-   next: NextFunction
-) => any;
+export type ErrorRequestHandler = (err: any, req: Request, res: Response, next: NextFunction) => any;

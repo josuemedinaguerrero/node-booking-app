@@ -7,10 +7,7 @@ export const verifyToken = (req: Req, _res: Response, next: NextFunction) => {
    const token = req.cookies.access_token;
    if (!token) return next(createError(401, "You are not authenticated"));
 
-   const encoded = jwt.verify(
-      token,
-      process.env.SECRET_KEY as string
-   ) as TokenEncoded;
+   const encoded = jwt.verify(token, process.env.SECRET_KEY as string) as TokenEncoded;
    if (!encoded) return next(createError(403, "Token is not valid"));
    req.user = encoded;
    next();

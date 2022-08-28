@@ -6,11 +6,7 @@ import { FilterQuery } from "mongoose";
 import jwt from "jsonwebtoken";
 import { createError } from "../utils/error";
 
-export const register = async (
-   req: Request,
-   res: Response,
-   next: NextFunction
-) => {
+export const register = async (req: Request, res: Response, next: NextFunction) => {
    try {
       const usuarioRegister = req.body as UserModel;
       const salt = bcrypt.genSaltSync(10);
@@ -24,22 +20,14 @@ export const register = async (
    }
 };
 
-export const login = async (
-   req: Request,
-   res: Response,
-   next: NextFunction
-) => {
+export const login = async (req: Request, res: Response, next: NextFunction) => {
    try {
       const { username } = req.body as UserModel;
 
       const user = (await User.findOne({ username })) as FilterQuery<UserModel>;
-      if (!user)
-         return next(createError(404, "Error logging in - User not found"));
+      if (!user) return next(createError(404, "Error logging in - User not found"));
 
-      const validatePassword = await bcrypt.compare(
-         req.body.password,
-         user.password
-      );
+      const validatePassword = await bcrypt.compare(req.body.password, user.password);
       if (!validatePassword) return next(createError(404, "Wrong password"));
 
       const token = jwt.sign(
@@ -47,11 +35,9 @@ export const login = async (
          process.env.SECRET_KEY as string
       );
 
-      const { password, __v, isAdmin, updatedAt, createdAt, ...otherDetails } =
-         user._doc;
-      console.log(token);
+      const { password, __v, isAdmin, updatedAt, createdAt, ...otherDetails } = user._doc;
       res.cookie("access_token", token, {
-         httpOnly: false,
+         httpOnly: true,
       }).json({
          details: { ...otherDetails },
          isAdmin,
